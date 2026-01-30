@@ -1,0 +1,364 @@
+/*
+ * Estilos para o Bloco Data Folia (SharePoint friendly)
+ * Usa variáveis CSS para cores e um design limpo, responsivo e acessível.
+ */
+
+:root {
+  /* Paleta inspirada no Carnaval Baiano, suavizada para um visual moderno e profissional.
+     As cores foram escolhidas para transmitir energia sem agredir a leitura. */
+  --df-primary: #2cb67d;   /* verde médio vibrante */
+  --df-secondary: #d65d7a; /* rosa médio elegante */
+  --df-accent1: #ffe082;   /* amarelo pastel */
+  --df-accent2: #ffb74d;   /* laranja pastel */
+  --df-bg-light: #fef9f3;  /* fundo claro com tom neutro */
+  --df-card-bg: #ffffff;   /* fundo dos cards, destaca-se sobre o fundo creme */
+  --df-border: #e5e5e5;    /* cor da borda delicada */
+  --df-text: #333333;      /* cor principal do texto */
+}
+
+/* Reset e tipografia base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: var(--df-text);
+  /* Fundo com gradiente sutil que lembra a alegria do Carnaval sem poluir. */
+  background: linear-gradient(135deg, #fef9f3 0%, #fff7ea 100%);
+  line-height: 1.6;
+}
+
+/* Camada de confetes: pequenos pontos coloridos no fundo que não interferem na leitura.
+   Usa radial-gradient para simular confete espalhado. */
+#df-app::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  /* Confetes gerados com radial-gradient para um efeito sutil de festa. */
+  background-image:
+    radial-gradient(circle at 10% 15%, rgba(214, 93, 122, 0.12) 0, rgba(214, 93, 122, 0.12) 3px, transparent 3px),
+    radial-gradient(circle at 80% 25%, rgba(44, 182, 125, 0.12) 0, rgba(44, 182, 125, 0.12) 3px, transparent 3px),
+    radial-gradient(circle at 30% 80%, rgba(255, 183, 77, 0.12) 0, rgba(255, 183, 77, 0.12) 3px, transparent 3px),
+    radial-gradient(circle at 65% 65%, rgba(255, 224, 130, 0.12) 0, rgba(255, 224, 130, 0.12) 3px, transparent 3px);
+  background-size: 100% 100%;
+}
+
+/* Contêiner principal que isola o app */
+#df-app {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cabeçalho */
+/* Cabeçalho fixo que mantém o bloco visível no topo */
+.df-header {
+  background: var(--df-card-bg);
+  border-bottom: 1px solid var(--df-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 900;
+}
+.df-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+.df-title {
+  font-size: 2rem;
+  color: var(--df-primary);
+  font-weight: 700;
+}
+.df-header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.df-icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: var(--df-secondary);
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+.df-icon-btn:hover,
+.df-icon-btn:focus {
+  color: var(--df-primary);
+}
+.df-sprint-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Inputs */
+.df-input {
+  flex: 1 1 auto;
+  min-width: 200px;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--df-border);
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: var(--df-bg-light);
+  color: var(--df-text);
+  transition: box-shadow 0.2s ease;
+}
+.df-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--df-primary);
+}
+
+/* Botões genéricos */
+.df-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: filter 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  font-weight: 600;
+}
+.df-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.df-btn-primary {
+  background: var(--df-primary);
+}
+.df-btn-secondary {
+  background: var(--df-secondary);
+}
+.df-btn-danger {
+  background: #c62828;
+}
+.df-btn:hover:not(:disabled),
+.df-btn:focus:not(:disabled) {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Container de conteúdo */
+.df-container {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  flex: 1;
+}
+
+/* Cards e seções */
+.df-card {
+  background: var(--df-card-bg);
+  border: 1px solid var(--df-border);
+  border-radius: 12px;
+  padding: 1.4rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1rem;
+}
+.df-section-title {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--df-secondary);
+}
+.df-section-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Mood list */
+/* Lista de moods usa grid para manter alinhamento e responsividade */
+.df-mood-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.df-mood-btn {
+  padding: 0.6rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: var(--df-accent2);
+  color: #ffffff;
+  font-weight: 600;
+  transition: filter 0.2s ease;
+}
+.df-mood-btn:hover,
+.df-mood-btn:focus {
+  filter: brightness(1.1);
+}
+.df-mood-btn.df-selected {
+  background: var(--df-primary);
+}
+
+/* Feedback e placar */
+.df-feedback {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  color: var(--df-primary);
+}
+.df-score {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+.df-score ul {
+  list-style: none;
+  padding-left: 0;
+}
+.df-score li {
+  margin-bottom: 0.25rem;
+}
+
+/* Palavra / nuvem */
+.df-word-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+.df-word-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+.df-word-cloud .df-chip {
+  padding: 0.35rem 0.7rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  color: #fff;
+  background: var(--df-accent1);
+  display: inline-block;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Sprint cards internos */
+.df-sprint-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.df-mini-card {
+  flex: 1 1 280px;
+  background: var(--df-bg-light);
+  border: 1px solid var(--df-border);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.df-mini-card h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--df-primary);
+}
+.df-editable {
+  min-height: 80px;
+  padding: 0.5rem;
+  border: 1px dashed var(--df-border);
+  border-radius: 4px;
+  background: #fff;
+  white-space: pre-wrap;
+  outline: none;
+  font-size: 0.95rem;
+  color: var(--df-text);
+}
+.df-editable:empty::before {
+  content: "Clique para editar";
+  color: #999;
+}
+
+/* Chant */
+.df-chant {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: var(--df-accent2);
+  font-size: 1.2rem;
+}
+
+/* Modais */
+.df-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.df-modal-content {
+  background: var(--df-card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.df-modal-title {
+  margin-bottom: 1rem;
+  color: var(--df-secondary);
+  font-size: 1.4rem;
+}
+.df-label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: var(--df-text);
+}
+.df-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Escondido */
+.df-hidden {
+  display: none !important;
+}
+
+/* Modo apresentação */
+.presentation-mode {
+  font-size: 1.2rem;
+}
+.presentation-mode .df-editable {
+  min-height: 100px;
+  font-size: 1.05rem;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .df-title {
+    font-size: 1.5rem;
+  }
+  .df-mood-btn {
+    flex: 1 1 100%;
+  }
+  .df-mini-card {
+    flex: 1 1 100%;
+  }
+}

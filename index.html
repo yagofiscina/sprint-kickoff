@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bloco Data Folia</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Aplicação envolvida em um contêiner para isolar estilos -->
+    <div id="df-app">
+      <!-- Cabeçalho com nome do bloco, controles e início -->
+      <header class="df-header">
+        <div class="df-header-top">
+          <h1 id="blockName" class="df-title">Bloco Data Folia</h1>
+          <div class="df-header-actions">
+            <button id="presentationToggle" type="button" class="df-icon-btn" aria-label="Alternar modo apresentação" title="Modo apresentação">🔍</button>
+            <button id="settingsToggle" type="button" class="df-icon-btn" aria-label="Abrir configurações" title="Configurações">⚙️</button>
+          </div>
+        </div>
+        <div class="df-sprint-info">
+          <input
+            id="sprintInput"
+            type="text"
+            placeholder="Nome da Sprint e data"
+            aria-label="Nome e data da sprint"
+            class="df-input"
+          />
+          <button id="startBtn" type="button" class="df-btn df-btn-primary">Começar</button>
+        </div>
+      </header>
+
+      <main class="df-container">
+        <!-- Seção de contexto histórico -->
+        <section id="contextSection" class="df-card df-section">
+          <h2 class="df-section-title">Sobre o Carnaval de Salvador</h2>
+          <p>
+            O Carnaval de Salvador, também conhecido como Carnaval da Bahia, evoluiu ao longo de séculos e hoje é reconhecido pelo Guinness como o maior carnaval de rua do mundo. A festa começa seis dias antes da quarta‑feira de cinzas e ocupa diversos circuitos espalhados pela cidade. Os trios elétricos — caminhões equipados com palco e alto‑falantes — surgiram em 1950, quando Dodô e Osmar adaptaram a famosa “Fobica” para tocar música nas ruas. Atualmente, mais de dois milhões de foliões acompanham a festa, que dura quase uma semana, dançando e cantando atrás dos trios. Os principais circuitos, Dodô, Osmar e Batatinha, percorrem diferentes bairros, mostrando blocos tradicionais, afoxés e bandinhas, refletindo a diversidade cultural soteropolitana.
+          </p>
+        </section>
+
+        <!-- Quebra-gelo 1: mood -->
+        <section id="moodSection" class="df-card df-section df-hidden">
+          <h2 class="df-section-title">Seu mood pra essa sprint é qual?</h2>
+          <div class="df-mood-list">
+            <button class="df-mood-btn" type="button" data-mood="Axé no talo">Axé no talo</button>
+            <button class="df-mood-btn" type="button" data-mood="Pipoca organizada">Pipoca organizada</button>
+            <button class="df-mood-btn" type="button" data-mood="Trio elétrico com dependências">Trio elétrico com dependências</button>
+            <button class="df-mood-btn" type="button" data-mood="Camarote do foco">Camarote do foco</button>
+            <button class="df-mood-btn" type="button" data-mood="Sem corda, mas vamo!">Sem corda, mas vamo!</button>
+          </div>
+          <div id="moodFeedback" class="df-feedback df-hidden"></div>
+          <div id="moodScore" class="df-score df-hidden"></div>
+          <div class="df-section-footer">
+            <button id="moodNextBtn" type="button" class="df-btn df-btn-secondary df-hidden">Próximo</button>
+          </div>
+        </section>
+
+        <!-- Quebra-gelo 2: palavra -->
+        <section id="wordSection" class="df-card df-section df-hidden">
+          <h2 class="df-section-title">Uma palavra para essa sprint</h2>
+          <div class="df-word-form">
+            <input
+              id="wordInput"
+              type="text"
+              maxlength="40"
+              placeholder="Digite uma palavra"
+              aria-label="Palavra para essa sprint"
+              class="df-input"
+            />
+            <button id="wordAddBtn" type="button" class="df-btn df-btn-primary">Enviar</button>
+            <button id="wordClearBtn" type="button" class="df-btn df-btn-secondary">Limpar</button>
+          </div>
+          <div id="wordCloud" class="df-word-cloud"></div>
+          <div class="df-section-footer">
+            <button id="wordNextBtn" type="button" class="df-btn df-btn-secondary df-hidden">Próximo</button>
+          </div>
+        </section>
+
+        <!-- Sprint em 60 segundos -->
+        <section id="sprintSection" class="df-card df-section df-hidden">
+          <h2 class="df-section-title">Sprint em 60 segundos</h2>
+          <div class="df-sprint-cards">
+            <article class="df-mini-card">
+              <h3>Objetivo da Sprint</h3>
+              <div id="cardObjective" class="df-editable" contenteditable="true" aria-label="Objetivo da Sprint"></div>
+            </article>
+            <article class="df-mini-card">
+              <h3>Top 3 prioridades</h3>
+              <div id="cardPriorities" class="df-editable" contenteditable="true" aria-label="Top 3 prioridades"></div>
+            </article>
+            <article class="df-mini-card">
+              <h3>Riscos / Dependências</h3>
+              <div id="cardRisks" class="df-editable" contenteditable="true" aria-label="Riscos e Dependências"></div>
+            </article>
+          </div>
+          <div class="df-section-footer">
+            <button id="sprintNextBtn" type="button" class="df-btn df-btn-secondary">Próximo</button>
+          </div>
+        </section>
+
+        <!-- Fechamento -->
+        <section id="closingSection" class="df-card df-section df-hidden">
+          <h2 class="df-section-title">Fechamento</h2>
+          <button id="planningBtn" type="button" class="df-btn df-btn-primary">Bora pro Planning</button>
+          <p id="chantDisplay" class="df-chant df-hidden"></p>
+        </section>
+      </main>
+
+      <!-- Modal de configurações -->
+      <div id="settingsModal" class="df-modal df-hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <div class="df-modal-content">
+          <h2 id="settingsTitle" class="df-modal-title">Configurações</h2>
+          <label for="configBlockName" class="df-label">Nome do bloco</label>
+          <input id="configBlockName" type="text" class="df-input" />
+          <label for="configDevOpsLink" class="df-label">Link do DevOps</label>
+          <input id="configDevOpsLink" type="text" class="df-input" />
+          <div class="df-modal-buttons">
+            <button id="configSaveBtn" type="button" class="df-btn df-btn-primary">Salvar</button>
+            <button id="configCancelBtn" type="button" class="df-btn df-btn-secondary">Cancelar</button>
+          </div>
+          <hr />
+          <button id="resetBtn" type="button" class="df-btn df-btn-danger">Reset geral</button>
+        </div>
+      </div>
+
+      <!-- Modal genérico para confirmações -->
+      <div id="confirmDialog" class="df-modal df-hidden" role="dialog" aria-modal="true">
+        <div class="df-modal-content">
+          <p id="confirmMessage" class="df-modal-message"></p>
+          <div class="df-modal-buttons">
+            <button id="confirmYes" type="button" class="df-btn df-btn-primary">Confirmar</button>
+            <button id="confirmNo" type="button" class="df-btn df-btn-secondary">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
