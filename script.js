@@ -33,6 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const cardRisks = document.getElementById('cardRisks');
   const sprintNextBtn = document.getElementById('sprintNextBtn');
 
+  // Nova seção: interação ao vivo (Mentimeter)
+  const liveSection = document.getElementById('liveSection');
+  const liveNextBtn = document.getElementById('liveNextBtn');
+
   const planningBtn = document.getElementById('planningBtn');
   const chantDisplay = document.getElementById('chantDisplay');
 
@@ -157,8 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {HTMLElement} section
    */
   function showSection(section) {
-    // Todas as seções interativas
-    const sections = [moodSection, wordSection, sprintSection, closingSection];
+    // Todas as seções interativas (inclui a nova seção ao vivo)
+    const sections = [liveSection, moodSection, wordSection, sprintSection, closingSection];
     sections.forEach((sec) => {
       if (sec === section) {
         sec.classList.remove('df-hidden');
@@ -240,18 +244,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Salvar nome da sprint
     const name = sprintInput.value.trim();
     if (name) saveString('sprintName', name);
-    // Desativar
+    // Desativar input e botão
     sprintInput.disabled = true;
     startBtn.disabled = true;
-    // Mostrar primeira seção (mood)
-    showSection(moodSection);
+    // Mostrar primeira seção (interação ao vivo). O mood/word continuam disponíveis como fallback.
+    showSection(liveSection);
   });
 
-  // Seleção de moods
+  // Seleção de moods (fallback local)
   moodButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
       const selectedMood = btn.getAttribute('data-mood');
-      // Adicionar classe selecionado
+      // Marcar selecionado
       moodButtons.forEach((b) => b.classList.remove('df-selected'));
       btn.classList.add('df-selected');
       // Atualizar contagem
@@ -269,12 +273,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Próximo após mood
+  // Próximo após mood (fallback)
   moodNextBtn.addEventListener('click', () => {
     showSection(wordSection);
   });
 
-  // Adicionar palavra
+  // Adicionar palavra (fallback)
   function addWord() {
     const word = wordInput.value.trim();
     if (!word) return;
@@ -293,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Limpar palavras com delegação para maior compatibilidade
+  // Limpar palavras (delegação para compatibilidade)
   wordSection.addEventListener('click', (evt) => {
     const target = evt.target;
     if (target && (target.id === 'wordClearBtn' || target.closest('#wordClearBtn'))) {
@@ -308,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Próximo após palavra
+  // Próximo após palavra (fallback)
   wordNextBtn.addEventListener('click', () => {
     showSection(sprintSection);
   });
@@ -327,7 +331,15 @@ document.addEventListener('DOMContentLoaded', () => {
     showSection(closingSection);
   });
 
-  // Fechamento: mostrar grito e abrir link
+  // Próximo após interação ao vivo
+  if (liveNextBtn) {
+    liveNextBtn.addEventListener('click', () => {
+      // Após interação ao vivo, pulamos diretamente para a seção de sprint
+      showSection(sprintSection);
+    });
+  }
+
+  // Fechamento: mostrar grito de guerra e abrir link do DevOps
   planningBtn.addEventListener('click', () => {
     const chants = [
       'É carnaval, vamo quebrar tudo!',
@@ -432,6 +444,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Inicializar UI
+  // Inicializar a interface
   loadInitialState();
 });
